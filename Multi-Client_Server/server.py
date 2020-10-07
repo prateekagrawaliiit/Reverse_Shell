@@ -2,7 +2,7 @@
 # @Author: prateek
 # @Date:   2020-10-07 23:55:25
 # @Last Modified by:   prateek
-# @Last Modified time: 2020-10-08 00:18:35
+# @Last Modified time: 2020-10-08 00:24:12
 
 # Server file
 
@@ -114,6 +114,22 @@ def start_turtle() :
 		print('Command not recognized')
 
 
+
+# List all active connections
+def list_connection():
+	results = ''
+	for i,conn in enumerate(all_connections):
+		try:
+			conn.send(str.encode(''))
+			conn.recv(201480)
+		except:
+			del all_connections[i]
+			del all_address[i]
+			continue
+
+		results = str[i] + "  " + str(all_address[i][0]) + "  " + str(all_address[i][1])+ "\n"
+
+	print('---Client---'+"\n"+results)
 
 
 
