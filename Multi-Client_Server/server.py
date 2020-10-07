@@ -2,7 +2,7 @@
 # @Author: prateek
 # @Date:   2020-10-07 23:55:25
 # @Last Modified by:   prateek
-# @Last Modified time: 2020-10-08 00:00:07
+# @Last Modified time: 2020-10-08 00:18:35
 
 # Server file
 
@@ -95,11 +95,23 @@ def accept_connection():
 			print('Connection has been established '+ str(address[0]))
 
 		except :
-			print('Error accepting connection')
+			print('Error accepting connection')	
 
 
+# Creating Custom Terminal
 
+def start_turtle() :
+	cmd = input('Turtle> ')
 
+	if cmd == 'list':
+		list_connection()
+	elif 'select' in cmd :
+		conn = get_target(cmd)
+
+		if conn is not None :
+			send_target_commands(conn)
+	else:
+		print('Command not recognized')
 
 
 
